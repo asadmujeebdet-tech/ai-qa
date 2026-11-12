@@ -23,6 +23,8 @@ The production build compiles the React/Vite dashboard into `dist/`. Express ser
 
 **Android device requirement:** Render cannot automatically access an Android emulator or a USB-connected phone on your computer. Render can host the dashboard, but it cannot host the Android emulator required for execution. Deploy this Node API on a separate cloud VM with KVM/Android Emulator support and a Google Play-enabled AVD, then set VITE_API_URL in the Render build environment to that API URL. Set CLIENT_ORIGIN on the runner to your Render domain. The cloud emulator must be signed in to a dedicated Google test account before unattended Play Store installs can work. The API automatically opens the Play Store listing for a package name and uses the vision agent to tap Install for free apps only.
 
+See [`runner/README.md`](runner/README.md) for the cloud VM, Play-enabled emulator, one-time Google test-account setup and secure runner deployment steps.
+
 ## Requirements for device testing
 
 - Node.js 20+
