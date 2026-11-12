@@ -4,7 +4,7 @@ This runner is the same Express API in `server/index.js`, deployed on a Linux VM
 
 ## VM prerequisites
 
-- Ubuntu 22.04/24.04 x86_64 VM with KVM access (`/dev/kvm` readable by the service user)
+- Ubuntu 22.04/24.04 x86_64 bare-metal host, or a cloud host explicitly supporting nested virtualization and exposing usable KVM (`/dev/kvm` readable by the service user). An ordinary VPS/Render web service is not sufficient.
 - Node.js 20+
 - Android SDK command-line tools, platform-tools and emulator
 - A Google Play system image AVD (not a plain AOSP image)
