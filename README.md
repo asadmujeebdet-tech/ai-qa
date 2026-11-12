@@ -2,15 +2,28 @@
 
 Database-free MVP for AI-assisted Android app exploration, diagnostics and evidence-based QA reporting.
 
-## Commands
+## Local development
 
-Install: `npm install`
+`npm install`
 
-Run frontend and API together: `npm run dev`
+`npm run dev`
 
-The requested build/start command is mapped to `npm run dev` in package scripts. This is a development server, not an optimized production build.
+Open http://localhost:5173. The API runs on http://localhost:4100.
 
-## Requirements
+## Render deployment
+
+Create a **Web Service** connected to this repository and branch `main`.
+
+- **Build command:** `npm install && npm run build`
+- **Start command:** `npm start`
+- **Environment:** Node.js 20 or newer
+- Add the required environment variables from `.env.example`; set `OPENAI_API_KEY` and the model/base URL if AI exploration is required.
+
+The production build compiles the React/Vite dashboard into `dist/`. Express serves that dashboard and the API from the same Render service.
+
+**Android device requirement:** Render cannot automatically access an Android emulator or a USB-connected phone on your computer. The dashboard/API can be hosted on Render, but a test device and ADB connection must be available to the machine running the test agent. For actual device testing, run the service locally with ADB connected, or deploy a separately secured device-runner/agent in an environment with an emulator attached. A package name alone does not make a remote Android device available.
+
+## Requirements for device testing
 
 - Node.js 20+
 - Android SDK Platform Tools (ADB) on PATH
@@ -19,11 +32,9 @@ The requested build/start command is mapped to `npm run dev` in package scripts.
 
 Copy `.env.example` to `.env`. Set `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `AI_MODEL`, and optionally `ANDROID_SERIAL`.
 
-Open http://localhost:5173. API: http://localhost:4100.
-
 ## Running a test
 
-1. Start an Android emulator or connect a test device.
+1. Start an Android emulator or connect a test device to the machine running the agent.
 2. Upload an APK, or ensure the package is already installed on the device.
 3. Enter the exact Android package name and select the device.
 4. Start AI testing and inspect the session report.
@@ -33,7 +44,7 @@ A package name alone does not download an APK from Google Play. This MVP tests a
 ## Architecture
 
 - `src/`: React dashboard.
-- `server/index.js`: Express API and in-memory session manager.
+- `server/index.js`: Express API, static dashboard hosting and in-memory session manager.
 - `server/adb.js`: Android device, interaction and diagnostics adapter.
 - `server/agent.js`: vision model action planner.
 
