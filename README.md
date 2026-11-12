@@ -34,12 +34,13 @@ Copy `.env.example` to `.env`. Set `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `AI_MODE
 
 ## Running a test
 
-1. Start an Android emulator or connect a test device to the machine running the agent.
-2. Upload an APK, or ensure the package is already installed on the device.
-3. Enter the exact Android package name and select the device.
-4. Start AI testing and inspect the session report.
+1. Start a Google Play-enabled Android emulator on the cloud runner and sign it into a dedicated test Google account.
+2. Configure the runner's `OPENAI_API_KEY`, `CLIENT_ORIGIN`, and ADB access.
+3. Enter only the public Play Store package name in the dashboard.
+4. The runner opens the Play Store listing, taps Install for a free app, launches it and explores it.
+5. Inspect functional findings, monetization UI observations, screenshots and crash evidence.
 
-A package name alone does not download an APK from Google Play. This MVP tests an already-installed package or installs an uploaded APK. Play Store region, account, licensing and Play Integrity restrictions require a separate supported distribution workflow.
+Package-name acquisition is performed through the Play Store app running inside the cloud emulator, not by scraping or downloading APKs from third-party sites. The emulator must already have Play Store and a signed-in authorized account. Paid apps, region restrictions, account verification, Play Integrity and unavailable listings can block installation.
 
 ## Architecture
 
