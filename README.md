@@ -21,7 +21,7 @@ Create a **Web Service** connected to this repository and branch `main`.
 
 The production build compiles the React/Vite dashboard into `dist/`. Express serves that dashboard and the API from the same Render service.
 
-**Android device requirement:** Render cannot automatically access an Android emulator or a USB-connected phone on your computer. The dashboard/API can be hosted on Render, but a test device and ADB connection must be available to the machine running the test agent. For actual device testing, run the service locally with ADB connected, or deploy a separately secured device-runner/agent in an environment with an emulator attached. A package name alone does not make a remote Android device available.
+**Android device requirement:** Render cannot automatically access an Android emulator or a USB-connected phone on your computer. Render can host the dashboard, but it cannot host the Android emulator required for execution. Deploy this Node API on a separate cloud VM with KVM/Android Emulator support and a Google Play-enabled AVD, then set VITE_API_URL in the Render build environment to that API URL. Set CLIENT_ORIGIN on the runner to your Render domain. The cloud emulator must be signed in to a dedicated Google test account before unattended Play Store installs can work. The API automatically opens the Play Store listing for a package name and uses the vision agent to tap Install for free apps only.
 
 ## Requirements for device testing
 
@@ -59,8 +59,8 @@ APK install, package launch, screenshot capture, UI hierarchy extraction, AI-dir
 ## Limitations and safety
 
 - One Android device/session at a time; no iOS support yet.
-- No direct Google Play download from package name.
-- No automated purchase completion or ad-network verification in this MVP.
+- Google Play acquisition requires a Play-enabled emulator, an authorized signed-in Google account, and app availability in that account's Play region.
+- Monetization QA currently records visible ad/paywall/subscription UI signals; it does not verify ad serving, complete purchases, validate entitlements, or measure revenue. Google Play billing scenarios require license testers and published test products; AdMob testing must use test ads/test devices.
 - AI findings are observations, not guaranteed defects. Verify findings manually.
 - Memory is a point-in-time snapshot, not a controlled benchmark.
 - The agent is instructed not to perform irreversible actions; prompts are not a security boundary. Use a dedicated test device and test accounts.
